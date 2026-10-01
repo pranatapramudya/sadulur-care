@@ -366,8 +366,11 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleFormChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => setFormData({ ...formData, [e.target.name]: e.target.value });
   const addMedication = () =>
     setMedications([
       ...medications,
@@ -613,7 +616,7 @@ export default function AdminDashboard() {
                 <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse"></span>
               )}
             </div>
-            <UserButton afterSignOutUrl="/" />
+            <UserButton />
           </div>
         </header>
 

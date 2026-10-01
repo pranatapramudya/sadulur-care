@@ -43,7 +43,9 @@ interface CheckinData {
 export default function PatientDashboard() {
   const { isLoaded, isSignedIn, user } = useUser();
   const { getToken } = useAuth();
-  const [jadwalTerdekat, setJadwalTerdekat] = useState<ScheduleData | null>(null);
+  const [jadwalTerdekat, setJadwalTerdekat] = useState<ScheduleData | null>(
+    null,
+  );
 
   // === STATE FINAL BOSS: PESAN BALASAN CHAT ===
   const [latestReply, setLatestReply] = useState<CheckinData | null>(null);
@@ -105,7 +107,9 @@ export default function PatientDashboard() {
         if (resCheckin.ok) {
           const dataCheckin = await resCheckin.json();
           // Cari checkin yang field 'adminReply'-nya udah keisi
-          const repliedCheckins = dataCheckin.filter((c: CheckinData) => c.adminReply);
+          const repliedCheckins = dataCheckin.filter(
+            (c: CheckinData) => c.adminReply,
+          );
           if (repliedCheckins.length > 0) {
             // Ambil pesan yang paling baru (diurutkan berdasarkan tanggal)
             repliedCheckins.sort(
@@ -144,18 +148,18 @@ export default function PatientDashboard() {
 
   const handleSubmitCheckIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validasi Inline
     const errors: { symptoms?: string } = {};
     if (!symptoms.trim()) {
       errors.symptoms = "Keluhan Lain wajib diisi.";
     }
-    
+
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
       return;
     }
-    
+
     setFormErrors({});
     setIsSubmitting(true);
 
@@ -197,7 +201,9 @@ export default function PatientDashboard() {
     } catch (error: unknown) {
       setIsSubmitting(false);
       setIsModalOpen(false);
-      setErrorMessage(error instanceof Error ? error.message : "Gagal menghubungi server");
+      setErrorMessage(
+        error instanceof Error ? error.message : "Gagal menghubungi server",
+      );
       setIsErrorOpen(true);
     }
   };
@@ -244,7 +250,7 @@ export default function PatientDashboard() {
                 )}
               </button>
               <div className="flex items-center justify-center bg-white/20 rounded-full p-1.5 backdrop-blur-sm shadow-inner transform transition hover:bg-white/30 active:scale-95">
-                <UserButton afterSignOutUrl="/" />
+                <UserButton />
               </div>
             </div>
           </div>
@@ -516,7 +522,9 @@ export default function PatientDashboard() {
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/50 resize-none font-medium"
                   ></textarea>
                   {formErrors.symptoms && (
-                    <p className="text-red-500 text-xs font-bold mt-1.5">{formErrors.symptoms}</p>
+                    <p className="text-red-500 text-xs font-bold mt-1.5">
+                      {formErrors.symptoms}
+                    </p>
                   )}
                 </div>
                 <button
